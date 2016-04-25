@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+project.ext.lwjglVersion = '3.0.0b'
+project.ext.jomlVersion = '1.7.1'
+project.ext.pngdecoderVersion = '1.0'
+
+repositories {
+  jcenter()
+  mavenCentral()
+  maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.4'
+}
+
+dependencies {
+  compile "org.lwjgl:lwjgl:${lwjglVersion}"
+  compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-windows"
+  compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-linux"
+  compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-osx"
+  compile "org.joml:joml:${jomlVersion}"
+  compile "org.l33tlabs.twl:pngdecoder:${pngdecoderVersion}"
+  compile 'org.slf4j:slf4j-api:1.7.18'
+  
+  testCompile 'junit:junit:4.12'
+}
