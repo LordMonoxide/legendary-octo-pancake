@@ -3,10 +3,12 @@ package gfx;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.annotation.Nullable;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWCharModsCallback;
 import org.lwjgl.glfw.GLFWCursorEnterCallback;
@@ -60,6 +62,22 @@ public class Window {
     this.bindEvents();
     
     System.out.println("Created window " + this.ptr); //$NON-NLS-1$
+  }
+  
+  public void setTitle(String title) {
+    glfwSetWindowTitle(this.ptr, title);
+  }
+  
+  public int getWidth() {
+    IntBuffer w = BufferUtils.createIntBuffer(1);
+    glfwGetFramebufferSize(this.ptr, w, null);
+    return w.get(0);
+  }
+  
+  public int getHeight() {
+    IntBuffer h = BufferUtils.createIntBuffer(1);
+    glfwGetFramebufferSize(this.ptr, null, h);
+    return h.get(0);
   }
   
   private void bindEvents() {

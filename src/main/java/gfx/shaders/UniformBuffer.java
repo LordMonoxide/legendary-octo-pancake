@@ -4,6 +4,8 @@ import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL31.*;
 
+import java.nio.IntBuffer;
+
 import org.joml.Matrix4f;
 
 import gfx.Buffers;
@@ -21,14 +23,22 @@ public class UniformBuffer {
   }
   
   public void set(Matrix4f mat) {
-    glBindBuffer(GL_UNIFORM_BUFFER, this.id);
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, Buffers.of(mat));
-    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    this.set(0, mat);
   }
   
   public void set(int offset, Matrix4f mat) {
     glBindBuffer(GL_UNIFORM_BUFFER, this.id);
     glBufferSubData(GL_UNIFORM_BUFFER, offset, Buffers.of(mat));
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+  }
+  
+  public void set(IntBuffer data) {
+    this.set(0, data);
+  }
+  
+  public void set(int offset, IntBuffer data) {
+    glBindBuffer(GL_UNIFORM_BUFFER, this.id);
+    glBufferSubData(GL_UNIFORM_BUFFER, offset, data);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
   }
   
